@@ -13,7 +13,7 @@ import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
-
+import helmet from 'helmet'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
 
@@ -23,6 +23,9 @@ try {
 
   // Creates an Express application.
   const app = express()
+
+  // Secure with helmet
+  app.use(helmet())
 
   // Create an HTTP server and pass it to Socket.IO.
   const httpServer = createServer(app)
