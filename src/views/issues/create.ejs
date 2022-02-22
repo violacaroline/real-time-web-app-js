@@ -1,13 +1,15 @@
 <h1>Create issue</h1>
-<form class="row g-3" method="post" action="./issues/create">
-  <div class="col-md-12">
+<form method="post" action="./issues/create">
+  <div>
+    <label for="title">Issue title:</label>
+    <input type="text" id="title" name="title" placeholder="Enter a new issue title here" required>
     <label class="form-label" for="descriptionInput">
-      Description
+      Description:
     </label>
     <input type="text" class="form-control" id="descriptionInput" name="description"
       placeholder="Enter a new issue description here" required="required" autofocus="autofocus" />
   </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Create</button>
+  <div>
+    <button type="submit">Create</button>
   </div>
 </form>

@@ -1,21 +1,25 @@
 <h1>Issues</h1>
 <table>
   <thead>
-    <tr>
-      <th class="table-headings">Title</th>
-      <th class="table-headings">Issue</th>
+    <tr class="table-headings">
+      <th>Title</th><th>Issue</th>     
     </tr>
   </thead>
   <tbody id="issue-list">
     <% if (viewData?.issues?.length) { %>
       <% for (const issue of viewData.issues) { %>
-        <tr data-id="<%= issue.id %>">
-          <td>
+        <tr id="issue-single" data-id="<%= issue.id %>">
+          <td id="issue-title">
+            <%= issue.title %>
+          </td>
+          <td id="issue-description">
             <%= issue.description %>
           </td>
-          <td class="text-nowrap">
-            <a href="./issues/<%= issue.id %>/update">Update</a>
-            <a href="./issues/<%= issue.id %>/delete">Delete</a>
+          <td class="action-options">
+            <a class="action" href="./issues/<%= issue.id %>/close">Comment issue</a>
+            <a class="action" href="./issues/<%= issue.id %>/close">Close issue</a>
+            <a class="action" href="./issues/<%= issue.id %>/update">Update</a>
+            <a class="action" href="./issues/<%= issue.id %>/delete">Delete</a>
           </td>
         </tr>
       <% } %>

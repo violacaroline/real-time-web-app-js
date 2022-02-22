@@ -47,6 +47,7 @@ export class IssuesController {
   async createPost (req, res) {
     try {
       const issue = new Issue({
+        title: req.body.title,
         description: req.body.description
       })
 
