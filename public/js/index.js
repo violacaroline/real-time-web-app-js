@@ -1,9 +1,8 @@
-import '../socket.io/socket.io.js'
-
 const issueTemplate = document.querySelector('#issue-template')
 
 // If issueTemplate is not present on the page, just ignore and do not listen for issue messages.
 if (issueTemplate) {
+  await import('../socket.io/socket.io.js')
   // Create a socket connection using Socket.IO.
   const socket = window.io()
 
@@ -24,19 +23,19 @@ function insertTaskRow (issue) {
     const issueNode = issueTemplate.content.cloneNode(true)
 
     const issueRow = issueNode.querySelector('tr')
-    const doneCheck = issueNode.querySelector('input[type=checkbox]') // REMOVE???
+    // const doneCheck = issueNode.querySelector('input[type=checkbox]') // REMOVE???
     const descriptionCell = issueNode.querySelector('td:nth-child(2)')
     const [updateLink, deleteLink] = issueNode.querySelectorAll('a')
 
     issueRow.setAttribute('data-id', issue.id)
 
-    if (issue.done) {
-      doneCheck.setAttribute('checked', '')
-      descriptionCell.classList.add('text-muted')
-    } else {
-      doneCheck.removeAttribute('checked')
-      descriptionCell.classList.remove('text-muted')
-    }
+    // if (issue.done) {
+    //   doneCheck.setAttribute('checked', '')
+    //   descriptionCell.classList.add('text-muted')
+    // } else {
+    //   doneCheck.removeAttribute('checked')
+    //   descriptionCell.classList.remove('text-muted') REMOVE???
+    // }
 
     descriptionCell.textContent = issue.description
 
