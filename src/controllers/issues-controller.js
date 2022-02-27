@@ -96,7 +96,6 @@ export class IssuesController {
 
       if (issue) {
         issue.description = req.body.description
-        issue.done = req.body.done === 'on' // REMOVE???
 
         await issue.save()
 

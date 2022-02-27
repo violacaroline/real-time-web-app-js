@@ -8,7 +8,7 @@
   <tbody id="issue-list">
     <% if (viewData?.issues?.length) { %>
       <% for (const issue of viewData.issues) { %>
-        <tr id="issue-single" data-id="<%= issue.id %>">
+        <tr class="issue-single" data-id="<%= issue.id %>">
           <td id="issue-title">
             <%= issue.title %>
           </td>
@@ -35,13 +35,16 @@
 
 <%# Socket.IO: Template for the client. The same as above, sort of. %>
 <template id="issue-template">
-  <tr>
-    <td>
-      <input class="form-check-input" type="checkbox" disabled />
+  <tr class="issue-single">
+    <td id="issue-title"> <!-- TESTING A LOT OF STUFF HERE, CHANGE BACK IF DISASTER -->
     </td>
-    <td class="text-nowrap">
-      <a>Update</a>
-      <a>Delete</a>
+    <td id="issue-description">
+    </td>
+    <td class="action-options">
+      <a class="action" >Comment issue</a>
+      <a class="action" >Close issue</a>
+      <a class="action" >Update</a>
+      <a class="action" >Delete</a>
     </td>
   </tr>
 </template>

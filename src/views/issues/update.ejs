@@ -2,13 +2,13 @@
 <form method="post" action="./issues/<%= viewData?.id %>/update">
   <div>
     <label for="title">Issue title:</label>
-    <input type="text" id="title" name="title" placeholder="Update issue title here" value="<%= viewData?.title %>" autofocus="autofocus" required>
+    <input type="text" id="title" name="title" placeholder="Update issue title here" value="<%= viewData?.title %>"
+      autofocus="autofocus" required>
     <label class="form-label" for="descriptionInput">
       Description
     </label>
     <input type="text" class="form-control" id="descriptionInput" name="description"
-      placeholder="Update issue description here" value="<%= viewData?.description %>" required="required"
-       />
+      value="<%= viewData?.description %>" required="required" />
   </div>
   <div>
     <button type="submit">Update</button>

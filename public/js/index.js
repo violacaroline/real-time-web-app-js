@@ -23,22 +23,17 @@ function insertTaskRow (issue) {
     const issueNode = issueTemplate.content.cloneNode(true)
 
     const issueRow = issueNode.querySelector('tr')
-    // const doneCheck = issueNode.querySelector('input[type=checkbox]') // REMOVE???
-    const descriptionCell = issueNode.querySelector('td:nth-child(2)')
-    const [updateLink, deleteLink] = issueNode.querySelectorAll('a')
+    const titleCell = issueNode.querySelector('#issue-title')
+    const descriptionCell = issueNode.querySelector('#issue-description')
+    const [commentLink, closeLink, updateLink, deleteLink] = issueNode.querySelectorAll('a')
 
     issueRow.setAttribute('data-id', issue.id)
 
-    // if (issue.done) {
-    //   doneCheck.setAttribute('checked', '')
-    //   descriptionCell.classList.add('text-muted')
-    // } else {
-    //   doneCheck.removeAttribute('checked')
-    //   descriptionCell.classList.remove('text-muted') REMOVE???
-    // }
-
+    titleCell.textContent = issue.title
     descriptionCell.textContent = issue.description
 
+    commentLink.href = // FIX THIS
+    closeLink.href = // FIX THIS
     updateLink.href = `./issues/${issue.id}/update`
     deleteLink.href = `./issues/${issue.id}/delete`
 

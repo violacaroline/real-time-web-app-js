@@ -111,7 +111,7 @@ nav li {
   padding: 15px 20px;
 }
 
-#issue-single {
+.issue-single {
   display: block;
   width: 100%;
   border-bottom: 1.5px solid #ddd;
