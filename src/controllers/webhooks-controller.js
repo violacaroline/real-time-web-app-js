@@ -41,7 +41,8 @@ export class WebhooksController {
       let issue = null
       if (req.body.event_type === 'issue') {
         issue = new Issue({
-          description: req.body.object_attributes.title
+          title: req.body.object_attributes.title,
+          description: req.body.object_attributes.description
         })
 
         await issue.save()

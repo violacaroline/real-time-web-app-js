@@ -2,11 +2,12 @@
 <form method="post" action="./issues/<%= viewData?.id %>/delete">
   <input type="hidden" name="id" value="<%= viewData?.id %>" />
   <div>
+    <label for="title">Issue title:</label>
+    <input type="text" id="title" name="title" value="<%= viewData?.title %>" disabled>
     <label class="form-label" for="descriptionInput">
       Description
     </label>
-    <input type="text" class="form-control" id="descriptionInput"
-      placeholder="Update issue description here" value="<%= viewData?.description %>"
+    <input type="text" class="form-control" id="descriptionInput" value="<%= viewData?.description %>"
       disabled />
   </div>
   <div>
