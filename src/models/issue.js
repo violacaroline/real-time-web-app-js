@@ -6,6 +6,9 @@ import mongoose from 'mongoose'
 
 // Create a schema.
 const schema = new mongoose.Schema({
+  avatar: {
+    type: String
+  },
   title: {
     type: String,
     required: true,

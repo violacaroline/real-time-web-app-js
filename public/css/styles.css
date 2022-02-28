@@ -120,6 +120,11 @@ nav li {
   margin: 10px;
 }
 
+#issue-avatar {
+  max-width: 40px;
+  border-radius: 50%;
+}
+
 #issue-title {
   width: 200px;
 }

@@ -25,7 +25,17 @@ try {
   const app = express()
 
   // Secure with helmet
-  app.use(helmet())
+  app.use(helmet({
+    crossOriginEmbedderPolicy: false
+  }))
+  app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'img-src': ["'self'", 'https://gitlab.lnu.se/uploads/-/system/user/avatar/1456/avatar.png']
+      }
+    })
+  )
 
   // Create an HTTP server and pass it to Socket.IO.
   const httpServer = createServer(app)

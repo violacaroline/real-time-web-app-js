@@ -41,6 +41,7 @@ export class WebhooksController {
       let issue = null
       if (req.body.event_type === 'issue') {
         issue = new Issue({
+          avatar: req.body.user.avatar_url,
           title: req.body.object_attributes.title,
           description: req.body.object_attributes.description
         })

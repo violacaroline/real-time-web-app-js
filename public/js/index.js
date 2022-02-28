@@ -23,12 +23,14 @@ function insertTaskRow (issue) {
     const issueNode = issueTemplate.content.cloneNode(true)
 
     const issueRow = issueNode.querySelector('tr')
+    const avatarCell = issueNode.querySelector('#issue-avatar')
     const titleCell = issueNode.querySelector('#issue-title')
     const descriptionCell = issueNode.querySelector('#issue-description')
     const [commentLink, closeLink, updateLink, deleteLink] = issueNode.querySelectorAll('a')
 
     issueRow.setAttribute('data-id', issue.id)
 
+    avatarCell.setAttribute('src', issue.avatar)
     titleCell.textContent = issue.title
     descriptionCell.textContent = issue.description
 
