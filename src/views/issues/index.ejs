@@ -9,6 +9,9 @@
     <% if (viewData?.issues?.length) { %>
       <% for (const issue of viewData.issues) { %>
         <tr class="issue-single" data-id="<%= issue.id %>">
+          <td id="issue-avatar">
+            <img id="issue-avatar" src="<%= issue.avatar %>" alt="Avatar of the user who created the issue">           
+          </td>
           <td id="issue-title">
             <%= issue.title %>
           </td>
@@ -24,7 +27,7 @@
         </tr>
       <% } %>
     <% } else { %>
-      <tr>
+      <tr id="no-issues">
         <td>
           There are no issues to display
         </td>
@@ -36,7 +39,7 @@
 <%# Socket.IO: Template for the client. The same as above, sort of. %>
 <template id="issue-template">
   <tr class="issue-single">
-    <img id="issue-avatar" src="" alt="Avatar of the user who created the issue">
+    <td><img id="issue-avatar" src="" alt="Avatar of the user who created the issue"></td>
     <td id="issue-title"> </td> <!-- TESTING A LOT OF STUFF HERE, CHANGE BACK IF DISASTER -->
     <td id="issue-description"></td>    
     <td class="action-options">

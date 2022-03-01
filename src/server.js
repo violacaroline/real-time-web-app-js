@@ -32,7 +32,7 @@ try {
     helmet.contentSecurityPolicy({
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'img-src': ["'self'", 'https://gitlab.lnu.se/uploads/-/system/user/avatar/1456/avatar.png']
+        'img-src': ["'self'", 'https://gitlab.lnu.se']
       }
     })
   )

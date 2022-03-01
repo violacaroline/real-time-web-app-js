@@ -7,7 +7,7 @@ if (issueTemplate) {
   const socket = window.io()
 
   // Listen for "issues/create" message from the server.
-  socket.on('issues/create', (issue) => insertTaskRow(issue))
+  socket.on('issues/create', (issue) => insertIssueRow(issue))
 }
 
 /**
@@ -15,8 +15,9 @@ if (issueTemplate) {
  *
  * @param {object} issue - The issue to add.
  */
-function insertTaskRow (issue) {
+function insertIssueRow (issue) {
   const issueList = document.querySelector('#issue-list')
+  document.querySelector('#no-issues')?.remove()
 
   // Only add an issue if it's not already in the list.
   if (!issueList.querySelector(`[data-id="${issue.id}"]`)) {
@@ -35,10 +36,32 @@ function insertTaskRow (issue) {
     descriptionCell.textContent = issue.description
 
     commentLink.href = // FIX THIS
-    closeLink.href = // FIX THIS
-    updateLink.href = `./issues/${issue.id}/update`
+      closeLink.href = // FIX THIS
+      updateLink.href = `./issues/${issue.id}/update`
     deleteLink.href = `./issues/${issue.id}/delete`
 
     issueList.appendChild(issueNode)
+  } else {
+    updateIssue()
+  }
+
+  /**
+   * Updates a specific issuerow.
+   *
+   * @param {object} issue - The issue to update.
+   */
+  async function updateIssue (issue) {
+    // const issueList = document.querySelector('#issue-list')
+
+    // // Only add an issue if it's not already in the list.
+    // if (issueList.querySelector(`[data-id="${issue.id}"]`)) {
+    //   const issueNode = issueList.querySelector(`[data-id="${issue.id}"]`)
+
+    //   const titleCell = issueNode.querySelector('#issue-title')
+    //   const descriptionCell = issueNode.querySelector('#issue-description')
+
+    //   titleCell.textContent = issue.title
+    //   descriptionCell.textContent = issue.description
+    // }
   }
 }

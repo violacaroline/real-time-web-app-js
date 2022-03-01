@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
     type: String
   },
   title: {
-    type: String,
+    type: String, // LÄGG TILL IID
     required: true,
     trim: true,
     minlength: 1

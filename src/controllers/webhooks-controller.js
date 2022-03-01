@@ -3,6 +3,7 @@
  */
 
 import { Issue } from '../models/issue.js'
+import fetch from 'node-fetch'
 
 /**
  * Encapsulates a controller.
@@ -36,6 +37,16 @@ export class WebhooksController {
    */
   async indexPost (req, res, next) {
     try {
+      const response = await fetch(process.env.GITLAB_PROJECT_URL, {
+        method: 'get',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${process.env.GITLAB_ACCESS_TOKEN}`
+        }
+      })
+
+      const data = await response.json()
+      console.log('Response from webhook controller: ', data)
       // Only interested in issues events. (But still, respond with a 200
       // for events not supported.)
       let issue = null
@@ -57,6 +68,7 @@ export class WebhooksController {
         res.io.emit('issues/create', issue.toObject())
       }
     } catch (error) {
+      console.log(error)
       const err = new Error('Internal Server Error')
       err.status = 500
       next(err)
