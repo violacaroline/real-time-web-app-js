@@ -8,7 +8,7 @@
   <tbody id="issue-list">
     <% if (viewData?.issues?.length) { %>
       <% for (const issue of viewData.issues) { %>
-        <tr class="issue-single" data-id="<%= issue.id %>">
+        <tr class="issue-single" data-id="<%= issue.issueId %>"> <!-- CHANGED FROM .ID TO .ISSUEID-->
           <td id="issue-avatar">
             <img id="issue-avatar" src="<%= issue.avatar %>" alt="Avatar of the user who created the issue">           
           </td>
@@ -19,10 +19,10 @@
             <%= issue.description %>
           </td>
           <td class="action-options">
-            <a class="action" href="./issues/<%= issue.id %>/comment">Comment issue</a>
-            <a class="action" href="./issues/<%= issue.id %>/close">Close issue</a>
-            <a class="action" href="./issues/<%= issue.id %>/update">Update</a>
-            <a class="action" href="./issues/<%= issue.id %>/delete">Delete</a>
+            <a class="action" href="./issues/<%= issue.issueId %>/comment">Comment issue</a>
+            <a class="action" href="./issues/<%= issue.issueId %>/close">Close issue</a>
+            <a class="action" href="./issues/<%= issue.issueId %>/update">Update</a>
+            <a class="action" href="./issues/<%= issue.issueId %>/delete">Delete</a>
           </td>
         </tr>
       <% } %>

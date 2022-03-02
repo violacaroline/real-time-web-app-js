@@ -9,8 +9,11 @@ const schema = new mongoose.Schema({
   avatar: {
     type: String
   },
+  issueId: {
+    type: String
+  },
   title: {
-    type: String, // LÄGG TILL IID
+    type: String,
     required: true,
     trim: true,
     minlength: 1
