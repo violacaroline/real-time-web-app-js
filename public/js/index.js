@@ -21,7 +21,7 @@ function insertIssueRow (issue) {
   console.log('THE ISSUE STATE from public js', issue)
 
   // Only add an issue if it's not already in the list.
-  if (!issueList.querySelector(`[data-id="${issue.issueId}"]`)) { // LOGIC IS OFF
+  if (!issueList.querySelector(`[data-id="${issue.issueId}"]`)) {
     const issueNode = issueTemplate.content.cloneNode(true)
 
     const issueRow = issueNode.querySelector('tr')

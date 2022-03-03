@@ -19,8 +19,13 @@
             <%= issue.description %>
           </td>
           <td class="action-options">
-            <a class="action" href="./issues/<%= issue.iid %>/reopen">Reopen issue</a> <!-- BYT TILL KNAPPAR LÄGG I FORM, PREVENTDEFAULT? -->
+            <% if (issue.state === 'closed') { %>
+            <a class="action" href="./issues/<%= issue.iid %>/reopen">Reopen issue</a>
+            <% } else { %>
             <a class="action" href="./issues/<%= issue.iid %>/close">Close issue</a>
+            <% } %>
+            <!-- <button type="submit" name="state" value="<%=issue.state%>" class="reopen-issue">Open</button>
+            <button type="submit" name="state" value="<%=issue.state%>" class="close-issue">Close</button>  -->
           </td>
         </tr>
       <% } %>
@@ -43,6 +48,8 @@
     <td class="action-options">
       <a class="action" >Reopen issue</a>
       <a class="action" >Close issue</a>
+      <!-- <button type="submit" name="state" value="" class="action"></button>
+      <button type="submit" name="state" value="" class="action"></button> -->
     </td>
   </tr>
 </template>
