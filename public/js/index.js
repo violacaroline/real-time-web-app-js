@@ -40,7 +40,7 @@ function insertIssueRow (issue) {
     closeLink.href = `./issues/${issue.iid}/close`
 
     issueList.appendChild(issueNode)
-  } else if (issueList.querySelector(`[data-id="${issue.issueId}"]`)) {
+  } else if (issueList.querySelector(`[data-id="${issue.issueId}"]`) && !issue.closed) {
     updateIssue(issue)
   } else if (issue.closed) {
     closeIssue(issue)

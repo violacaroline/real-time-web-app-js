@@ -59,13 +59,16 @@ export class IssuesController {
    */
   async close (req, res, next) {
     try {
-      // const response = await fetch(process.env.GITLAB_PROJECT_URL, {
-      //   method: 'put',
-      //   headers: {
-      //     'Content-type': 'application/json',
-      //     Authorization: `Bearer ${process.env.GITLAB_ACCESS_TOKEN}`
-      //   }
-      // })
+      const postUrl = `https://gitlab.lnu.se/api/v4/projects/21393/issues/${req.params.id}?state_event=close`
+      const response = await fetch(postUrl, {
+        method: 'put',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${process.env.GITLAB_ACCESS_TOKEN}`
+        }
+      })
+      console.log(response)
+      res.sendStatus(200)
     } catch (error) {
       next(error)
     }
