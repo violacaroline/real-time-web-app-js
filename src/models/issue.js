@@ -15,6 +15,9 @@ const schema = new mongoose.Schema({
   iid: {
     type: String
   },
+  state: {
+    type: String
+  },
   title: {
     type: String,
     required: true,

@@ -28,7 +28,6 @@ export class IssuesController {
 
       const result = await response.json()
 
-      // Only display open issues.
       const viewData = []
       result.forEach(issue => {
         issue = {
@@ -57,7 +56,7 @@ export class IssuesController {
    */
   async close (req, res, next) {
     try {
-      const postUrl = `https://gitlab.lnu.se/api/v4/projects/21393/issues/${req.params.id}?state_event=close`
+      const postUrl = `https://gitlab.lnu.se/api/v4/projects/21435/issues/${req.params.id}?state_event=close`
       await fetch(postUrl, {
         method: 'put',
         headers: {
@@ -83,7 +82,7 @@ export class IssuesController {
    */
   async reopen (req, res, next) {
     try {
-      const postUrl = `https://gitlab.lnu.se/api/v4/projects/21393/issues/${req.params.id}?state_event=reopen`
+      const postUrl = `https://gitlab.lnu.se/api/v4/projects/21435/issues/${req.params.id}?state_event=reopen`
       await fetch(postUrl, {
         method: 'put',
         headers: {
@@ -91,7 +90,6 @@ export class IssuesController {
           Authorization: `Bearer ${process.env.GITLAB_ACCESS_TOKEN}`
         }
       })
-
       req.session.flash = { type: 'success', text: 'The issue was reopened!' }
       res.redirect('../')
       res.sendStatus(200)

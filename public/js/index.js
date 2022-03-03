@@ -30,6 +30,12 @@ function insertIssueRow (issue) {
     const descriptionCell = issueNode.querySelector('#issue-description')
     const [reopenLink, closeLink] = issueNode.querySelectorAll('a')
 
+    if (issue.state === 'opened') {
+      reopenLink.classList.add('hidden')
+    } else {
+      closeLink.classList.add('hidden')
+    }
+
     issueRow.setAttribute('data-id', issue.issueId)
 
     avatarCell.setAttribute('src', issue.avatar)
@@ -40,9 +46,9 @@ function insertIssueRow (issue) {
     closeLink.href = `./issues/${issue.iid}/close`
 
     issueList.appendChild(issueNode)
-  } else if (issueList.querySelector(`[data-id="${issue.issueId}"]`) && !issue.closed) {
+  } else if (issueList.querySelector(`[data-id="${issue.issueId}"]`) && issue.state === 'opened') {
     updateIssue(issue)
-  } else if (issue.closed) {
+  } else if (issue.state === 'closed') {
     closeIssue(issue)
   }
 
@@ -52,6 +58,7 @@ function insertIssueRow (issue) {
    * @param {object} issue - The issue to update.
    */
   function updateIssue (issue) {
+    console.log('Im updating here')
     const issueNode = document.querySelector(`[data-id="${issue.issueId}"]`)
 
     const titleCell = issueNode.querySelector('#issue-title')
@@ -62,13 +69,18 @@ function insertIssueRow (issue) {
   }
 
   /**
-   * Removes a specific issuerow due to a closing event.
+   * Change reopen/close link for if issue is closed or not.
    *
    * @param {object} issue - The issue to remove.
    */
   function closeIssue (issue) {
-    // console.log('Issue id from close function', issue.issueId)
-    const issueList = document.querySelector('#issue-list')
-    issueList.querySelector(`[data-id="${issue.issueId}"]`).remove()
+    if (issue.state === 'closed') {
+      document.querySelector('#close').classList.add('hidden')
+    } else {
+      document.querySelector('#reopen').classList.add('hidden')
+    }
+    // const issueList = document.querySelector('#issue-list')
+    // const issueNode = issueList.querySelector(`[data-id="${issue.issueId}"]`)
+    // console.log('The issueList from close issue ', issueList)
   }
 }

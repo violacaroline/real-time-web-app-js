@@ -20,9 +20,9 @@
           </td>
           <td class="action-options">
             <% if (issue.state === 'closed') { %>
-            <a class="action" href="./issues/<%= issue.iid %>/reopen">Reopen issue</a>
+            <a id="reopen" class="action" href="./issues/<%= issue.iid %>/reopen">Reopen issue</a>
             <% } else { %>
-            <a class="action" href="./issues/<%= issue.iid %>/close">Close issue</a>
+            <a id="close" class="action" href="./issues/<%= issue.iid %>/close">Close issue</a>
             <% } %>
           </td>
         </tr>
@@ -44,10 +44,8 @@
     <td id="issue-title"> </td>
     <td id="issue-description"></td>    
     <td class="action-options">
-      <a class="action" >Reopen issue</a>
-      <a class="action" >Close issue</a>
-      <!-- <button type="submit" name="state" value="" class="action"></button>
-      <button type="submit" name="state" value="" class="action"></button> -->
+      <a id="reopen" class="action" >Reopen issue</a>
+      <a id="close" class="action" >Close issue</a>
     </td>
   </tr>
 </template>

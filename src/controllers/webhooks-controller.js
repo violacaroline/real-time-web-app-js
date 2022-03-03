@@ -47,17 +47,17 @@ export class WebhooksController {
             avatar: req.body.user.avatar_url,
             issueId: req.body.object_attributes.id,
             iid: req.body.object_attributes.iid,
+            state: req.body.object_attributes.state,
             title: req.body.object_attributes.title,
             description: req.body.object_attributes.description
           })
         }
-
         // It is important to respond quickly!
         res.status(200).end()
-
+        console.log('From open issue webhook con', issue)
         // Put this last because socket communication can take long time.
         if (issue) {
-          res.io.emit('issues/create', issue.toObject())
+          res.io.emit('issues/create', issue)
         }
       } else if (req.body.object_attributes.action === 'update') {
         console.log('This is an update post!')
@@ -78,6 +78,7 @@ export class WebhooksController {
             avatar: data.author.avatar_url,
             issueId: data.id,
             iid: data.iid,
+            state: data.state,
             title: data.title,
             description: data.description
           }
@@ -94,10 +95,16 @@ export class WebhooksController {
         console.log('This is a close post!')
 
         const data = req.body.object_attributes
+        // console.log('From webhook con close sect', data)
+
         const issue = {
-          closed: data.closed_at,
-          issueId: data.id
+          issueId: data.id,
+          iid: data.iid,
+          state: data.state,
+          title: data.title,
+          description: data.description
         }
+
         // It is important to respond quickly!
         res.status(200).end()
 
