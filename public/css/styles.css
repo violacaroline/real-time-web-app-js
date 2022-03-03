@@ -77,21 +77,6 @@ textarea {
   height: 120px;
 }
 
-button {
-  margin-top: 15px;
-  background: crimson;
-  color: white;
-  padding: 5px;
-  border: 0;
-  border-radius: 5px;
-  font-size: 0.8em;
-  cursor: pointer;
-}
-
-button:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
 nav li {
   list-style-type: none;
   margin-left: 20px;
@@ -136,18 +121,23 @@ nav li {
 
 .action-options {
   display: block;
+  margin-top: 10px;
   width: 400px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-.action:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  border-radius: 10px;
+.action {
+  background: crimson;
+  color: white;
+  padding: 5px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.hidden {
-  display: none;
+.action:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 /* STYLES FOR FLASH MESSAGES */
