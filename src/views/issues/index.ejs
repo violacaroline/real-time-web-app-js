@@ -6,11 +6,11 @@
     </tr>
   </thead>
   <tbody id="issue-list">
-    <% if (viewData?.issues?.length) { %>
-      <% for (const issue of viewData.issues) { %>
-        <tr class="issue-single" data-id="<%= issue.issueId %>"> <!-- CHANGED FROM .ID TO .ISSUEID-->
+    <% if (viewData?.length) { %>
+      <% for (const issue of viewData) { %>
+        <tr class="issue-single" data-id="<%= issue.issueId %>">
           <td id="issue-avatar">
-            <img id="issue-avatar" src="<%= issue.avatar %>" alt="Avatar of the user who created the issue">           
+            <img id="issue-avatar" src="<%= issue.avatar%>" alt="Avatar of the user who created the issue">           
           </td>
           <td id="issue-title">
             <%= issue.title %>
@@ -19,10 +19,8 @@
             <%= issue.description %>
           </td>
           <td class="action-options">
-            <a class="action" href="./issues/<%= issue.issueId %>/comment">Comment issue</a>
-            <a class="action" href="./issues/<%= issue.issueId %>/close">Close issue</a>
-            <a class="action" href="./issues/<%= issue.issueId %>/update">Update</a>
-            <a class="action" href="./issues/<%= issue.issueId %>/delete">Delete</a>
+            <a class="action" href="./issues/<%= issue.iid %>/reopen">Reopen issue</a>
+            <a class="action" href="./issues/<%= issue.iid %>/close">Close issue</a>
           </td>
         </tr>
       <% } %>
@@ -43,10 +41,8 @@
     <td id="issue-title"> </td> <!-- TESTING A LOT OF STUFF HERE, CHANGE BACK IF DISASTER -->
     <td id="issue-description"></td>    
     <td class="action-options">
-      <a class="action" >Comment issue</a>
+      <a class="action" >Reopen issue</a>
       <a class="action" >Close issue</a>
-      <a class="action" >Update</a>
-      <a class="action" >Delete</a>
     </td>
   </tr>
 </template>

@@ -7,7 +7,7 @@ if (issueTemplate) {
   const socket = window.io()
 
   // Listen for "issues/create" message from the server.
-  socket.on('issues/create', (issue) => insertIssueRow(issue)) // WHY THE FUCK CAN I NOT REACH UPDATE ISSUE HERE?
+  socket.on('issues/create', (issue) => insertIssueRow(issue)) // WHY CAN I NOT REACH UPDATE ISSUE HERE?
 }
 
 /**
@@ -18,17 +18,17 @@ if (issueTemplate) {
 function insertIssueRow (issue) {
   const issueList = document.querySelector('#issue-list')
   document.querySelector('#no-issues')?.remove()
-  console.log('Issue from insert new issue', issue)
+  console.log('THE ISSUE STATE from public js', issue)
 
   // Only add an issue if it's not already in the list.
-  if (!issueList.querySelector(`[data-id="${issue.issueId}"]`)) {
+  if (!issueList.querySelector(`[data-id="${issue.issueId}"]`)) { // LOGIC IS OFF
     const issueNode = issueTemplate.content.cloneNode(true)
 
     const issueRow = issueNode.querySelector('tr')
     const avatarCell = issueNode.querySelector('#issue-avatar')
     const titleCell = issueNode.querySelector('#issue-title')
     const descriptionCell = issueNode.querySelector('#issue-description')
-    const [commentLink, closeLink, updateLink, deleteLink] = issueNode.querySelectorAll('a')
+    const [reopenLink, closeLink] = issueNode.querySelectorAll('a')
 
     issueRow.setAttribute('data-id', issue.issueId)
 
@@ -36,14 +36,14 @@ function insertIssueRow (issue) {
     titleCell.textContent = issue.title
     descriptionCell.textContent = issue.description
 
-    commentLink.href = // FIX THIS
-      closeLink.href = // FIX THIS
-      updateLink.href = `./issues/${issue.issueId}/update`
-    deleteLink.href = `./issues/${issue.issueId}/delete`
+    reopenLink.href = `./issues/${issue.iid}/reopen`
+    closeLink.href = `./issues/${issue.iid}/close`
 
     issueList.appendChild(issueNode)
-  } else {
+  } else if (issueList.querySelector(`[data-id="${issue.issueId}"]`)) {
     updateIssue(issue)
+  } else if (issue.closed) {
+    closeIssue(issue)
   }
 
   /**
@@ -59,5 +59,16 @@ function insertIssueRow (issue) {
 
     titleCell.textContent = issue.title
     descriptionCell.textContent = issue.description
+  }
+
+  /**
+   * Removes a specific issuerow due to a closing event.
+   *
+   * @param {object} issue - The issue to remove.
+   */
+  function closeIssue (issue) {
+    // console.log('Issue id from close function', issue.issueId)
+    const issueList = document.querySelector('#issue-list')
+    issueList.querySelector(`[data-id="${issue.issueId}"]`).remove()
   }
 }

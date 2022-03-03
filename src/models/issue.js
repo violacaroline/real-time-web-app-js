@@ -12,6 +12,9 @@ const schema = new mongoose.Schema({
   issueId: {
     type: String
   },
+  iid: {
+    type: String
+  },
   title: {
     type: String,
     required: true,

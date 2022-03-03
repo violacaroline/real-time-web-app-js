@@ -2,7 +2,8 @@
  * Module for the IssuesController.
  */
 
-import { Issue } from '../models/issue.js'
+// import { Issue } from '../models/issue.js'
+import fetch from 'node-fetch'
 
 /**
  * Encapsulates a controller.
@@ -17,10 +18,31 @@ export class IssuesController {
    */
   async index (req, res, next) {
     try {
-      const viewData = {
-        issues: (await Issue.find())
-          .map(issue => issue.toObject())
-      }
+      const response = await fetch(process.env.GITLAB_PROJECT_URL, {
+        method: 'get',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${process.env.GITLAB_ACCESS_TOKEN}`
+        }
+      })
+
+      const result = await response.json()
+      // console.log('The issue from issue controller', result)
+
+      // Only display open issues.
+      const viewData = []
+      result.forEach(issue => {
+        if (issue.state === 'opened') {
+          issue = {
+            avatar: issue.author.avatar_url,
+            issueId: issue.id,
+            iid: issue.iid,
+            title: issue.title,
+            description: issue.description
+          }
+          viewData.push(issue)
+        }
+      })
 
       res.render('issues/index', { viewData })
     } catch (error) {
@@ -29,122 +51,23 @@ export class IssuesController {
   }
 
   /**
-   * Returns a HTML form for creating a new issue.
+   * Closes an issue on gitlab.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
    */
-  async create (req, res) {
-    res.render('issues/create')
-  }
-
-  /**
-   * Creates a new issue.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-  async createPost (req, res) {
+  async close (req, res, next) {
     try {
-      const issue = new Issue({
-        title: req.body.title,
-        description: req.body.description
-      })
-
-      await issue.save()
-
-      // --------------------------------------------------------------------------
-      // Socket.IO: Send the created task to all subscribers.
-      //
-      res.io.emit('issues/create', issue.toObject())
-      // --------------------------------------------------------------------------
-
-      req.session.flash = { type: 'success', text: 'The issue was created successfully.' }
-      res.redirect('.')
+      // const response = await fetch(process.env.GITLAB_PROJECT_URL, {
+      //   method: 'put',
+      //   headers: {
+      //     'Content-type': 'application/json',
+      //     Authorization: `Bearer ${process.env.GITLAB_ACCESS_TOKEN}`
+      //   }
+      // })
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('./create')
-    }
-  }
-
-  /**
-   * Returns a HTML form for updating an issue.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-  async update (req, res) {
-    try {
-      const issue = await Issue.findById(req.params.id)
-
-      res.render('issues/update', { viewData: issue.toObject() })
-    } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('..')
-    }
-  }
-
-  /**
-   * Updates a specific issue.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-  async updatePost (req, res) {
-    try {
-      const issue = await Issue.findById(req.params.id)
-
-      if (issue) {
-        issue.description = req.body.description
-
-        await issue.save()
-
-        req.session.flash = { type: 'success', text: 'The issue was updated successfully.' }
-      } else {
-        req.session.flash = {
-          type: 'danger',
-          text: 'The issue you attempted to update was removed by another user after you got the original values.'
-        }
-      }
-      res.redirect('..')
-    } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('./update')
-    }
-  }
-
-  /**
-   * Returns a HTML form for deleting an issue.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-  async delete (req, res) {
-    try {
-      const issue = await Issue.findById(req.params.id)
-
-      res.render('issues/delete', { viewData: issue.toObject() })
-    } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('..')
-    }
-  }
-
-  /**
-   * Deletes the specified issue.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-  async deletePost (req, res) {
-    try {
-      await Issue.findByIdAndDelete(req.body.id)
-
-      req.session.flash = { type: 'success', text: 'The issue was deleted successfully.' }
-      res.redirect('..')
-    } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('./delete')
+      next(error)
     }
   }
 }

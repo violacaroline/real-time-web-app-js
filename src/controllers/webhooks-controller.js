@@ -37,8 +37,6 @@ export class WebhooksController {
    */
   async indexPost (req, res, next) {
     try {
-      // const data = await response.json()
-      // console.log('Response from webhook controller: ', data)
       if (req.body.object_attributes.action === 'open') {
         console.log('This is an open post!')
         // Only interested in issues events. (But still, respond with a 200
@@ -48,11 +46,10 @@ export class WebhooksController {
           issue = new Issue({
             avatar: req.body.user.avatar_url,
             issueId: req.body.object_attributes.id,
+            iid: req.body.object_attributes.iid,
             title: req.body.object_attributes.title,
             description: req.body.object_attributes.description
           })
-
-          // await issue.save()
         }
 
         // It is important to respond quickly!
@@ -77,16 +74,30 @@ export class WebhooksController {
           })
           const data = await response.json()
 
-          // console.log('The data: ', data)
-
           issue = {
             avatar: data.author.avatar_url,
             issueId: data.id,
+            iid: data.iid,
             title: data.title,
             description: data.description
           }
         }
 
+        // It is important to respond quickly!
+        res.status(200).end()
+
+        // Put this last because socket communication can take long time.
+        if (issue) {
+          res.io.emit('issues/create', issue)
+        }
+      } else if (req.body.object_attributes.action === 'close') {
+        console.log('This is a close post!')
+
+        const data = req.body.object_attributes
+        const issue = {
+          closed: data.closed_at,
+          issueId: data.id
+        }
         // It is important to respond quickly!
         res.status(200).end()
 
