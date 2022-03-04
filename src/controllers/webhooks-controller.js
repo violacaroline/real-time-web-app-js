@@ -38,7 +38,6 @@ export class WebhooksController {
   async indexPost (req, res, next) {
     try {
       if (req.body.object_attributes.action === 'open') {
-        console.log('This is an open post!')
         // Only interested in issues events. (But still, respond with a 200
         // for events not supported.)
         let issue = null
@@ -60,7 +59,6 @@ export class WebhooksController {
           res.io.emit('issues/create', issue)
         }
       } else if (req.body.object_attributes.action === 'update') {
-        console.log('This is an update post!')
         // Only interested in issues events. (But still, respond with a 200
         // for events not supported.)
         let issue = null
@@ -92,8 +90,6 @@ export class WebhooksController {
           res.io.emit('issues/create', issue)
         }
       } else if (req.body.object_attributes.action === 'close') {
-        console.log('This is a close post!')
-
         const data = req.body.object_attributes
 
         const issue = {
@@ -113,7 +109,6 @@ export class WebhooksController {
         }
       }
     } catch (error) {
-      console.log(error)
       const err = new Error('Internal Server Error')
       err.status = 500
       next(err)

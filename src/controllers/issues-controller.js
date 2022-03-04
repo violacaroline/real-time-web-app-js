@@ -2,7 +2,6 @@
  * Module for the IssuesController.
  */
 
-// import { Issue } from '../models/issue.js'
 import fetch from 'node-fetch'
 
 /**

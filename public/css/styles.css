@@ -47,43 +47,6 @@ main {
   margin: 30px;
 }
 
-.row p {
-  padding: 20px;
-}
-
-/* STYLES FOR SNIPPETS CREATE  */
-
-form {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-input,
-textarea {
-  display: block;
-  resize: none;
-  width: 100%;
-  margin: 10px 0;
-  padding: 8px;
-}
-
-label {
-  display: block;
-  margin-top: 24px;
-}
-
-textarea {
-  font-family: Arial, Helvetica, sans-serif;
-  height: 120px;
-}
-
-nav li {
-  list-style-type: none;
-  margin-left: 20px;
-}
-
-/* STYLES FOR SNIPPETS INDEX */
-
 .table-container {
   width: 100%;
 }
@@ -117,6 +80,10 @@ nav li {
 #issue-description {
   width: 600px;
   padding: 5px;
+}
+
+#reopen {
+  background-color: green;
 }
 
 .action-options {
