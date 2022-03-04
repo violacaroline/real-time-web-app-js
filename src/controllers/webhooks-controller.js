@@ -54,7 +54,7 @@ export class WebhooksController {
         }
         // It is important to respond quickly!
         res.status(200).end()
-        console.log('From open issue webhook con', issue)
+
         // Put this last because socket communication can take long time.
         if (issue) {
           res.io.emit('issues/create', issue)
@@ -95,7 +95,6 @@ export class WebhooksController {
         console.log('This is a close post!')
 
         const data = req.body.object_attributes
-        // console.log('From webhook con close sect', data)
 
         const issue = {
           issueId: data.id,

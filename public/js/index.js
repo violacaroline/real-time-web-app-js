@@ -18,7 +18,7 @@ if (issueTemplate) {
 function insertIssueRow (issue) {
   const issueList = document.querySelector('#issue-list')
   document.querySelector('#no-issues')?.remove()
-  console.log('THE ISSUE STATE from public js', issue)
+  // console.log('THE ISSUE from public js', issue)
 
   // Only add an issue if it's not already in the list.
   if (!issueList.querySelector(`[data-id="${issue.issueId}"]`)) {
@@ -32,8 +32,7 @@ function insertIssueRow (issue) {
 
     if (issue.state === 'opened') {
       reopenLink.classList.add('hidden')
-    } else {
-      closeLink.classList.add('hidden')
+      closeLink.classList.remove('hidden')
     }
 
     issueRow.setAttribute('data-id', issue.issueId)
@@ -74,13 +73,17 @@ function insertIssueRow (issue) {
    * @param {object} issue - The issue to remove.
    */
   function closeIssue (issue) {
-    if (issue.state === 'closed') {
-      document.querySelector('#close').classList.add('hidden')
-    } else {
-      document.querySelector('#reopen').classList.add('hidden')
-    }
-    // const issueList = document.querySelector('#issue-list')
-    // const issueNode = issueList.querySelector(`[data-id="${issue.issueId}"]`)
-    // console.log('The issueList from close issue ', issueList)
+    const issueList = document.querySelector('#issue-list')
+    const issueNode = issueList.querySelector(`[data-id="${issue.issueId}"]`)
+    console.log('The issueNode from close issue ', issueNode)
+    const [reopenLink, closeLink] = issueNode.querySelectorAll('a')
+
+    console.log('Reopenlink: ', reopenLink)
+    console.log('Closelink: ', closeLink)
+
+    console.log('Issue from closeIssue: ', issue)
+
+    reopenLink.classList.remove('hidden')
+    closeLink.classList.add('hidden')
   }
 }

@@ -19,11 +19,9 @@
             <%= issue.description %>
           </td>
           <td class="action-options">
-            <% if (issue.state === 'closed') { %>
-            <a id="reopen" class="action" href="./issues/<%= issue.iid %>/reopen">Reopen issue</a>
-            <% } else { %>
-            <a id="close" class="action" href="./issues/<%= issue.iid %>/close">Close issue</a>
-            <% } %>
+            
+            <a id="reopen" class="action <%=issue.state==='opened' ? 'hidden' : '' %>" href="./issues/<%= issue.iid %>/reopen">Reopen issue</a>         
+            <a id="close" class="action <%=issue.state==='closed' ? 'hidden' : '' %>" href="./issues/<%= issue.iid %>/close">Close issue</a>
           </td>
         </tr>
       <% } %>
