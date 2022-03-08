@@ -1,13 +1,14 @@
+import '../socket.io/socket.io.js'
 const issueTemplate = document.querySelector('#issue-template')
 
 // If issueTemplate is not present on the page, just ignore and do not listen for issue messages.
 if (issueTemplate) {
-  await import('../socket.io/socket.io.js')
   // Create a socket connection using Socket.IO.
-  const socket = window.io()
+  const baseURL = document.querySelector('base').getAttribute('href')
+  const socket = window.io({ path: `${baseURL}socket.io` })
 
   // Listen for "issues/create" message from the server.
-  socket.on('issues/create', (issue) => insertIssueRow(issue)) // WHY CAN I NOT REACH UPDATE ISSUE HERE?
+  socket.on('issues/create', (issue) => insertIssueRow(issue))
 }
 
 /**
