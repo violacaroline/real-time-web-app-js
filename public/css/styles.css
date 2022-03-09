@@ -27,6 +27,7 @@ h1, h2, h3, a, p, ul{
 nav {
   display: flex;
   justify-content: space-between;
+  list-style-type: none;
   margin-bottom: 60px;
   padding-bottom: 10px;
   border-bottom: 1.5px solid #ddd;
@@ -41,6 +42,7 @@ nav ul {
 }
 
 .nav-link {
+  list-style-type: none;
   white-space: nowrap;
 }
 
