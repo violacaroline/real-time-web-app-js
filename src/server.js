@@ -37,7 +37,7 @@ try {
   const httpServer = createServer(app)
   const io = new Server(httpServer)
 
-  // Not necessary, but nice to log when a user connects/disconnects.
+  // Not needed, but nice to log when a user connects/disconnects.
   io.on('connection', (socket) => {
     console.log('socket.io: a user connected')
 
