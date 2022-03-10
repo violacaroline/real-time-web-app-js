@@ -17,7 +17,7 @@ import { createServer } from 'node:http'
 import { Server } from 'socket.io'
 
 try {
-  // Creates an Express application.
+  // Creates an Express app.
   const app = express()
 
   // Secure with helmet
