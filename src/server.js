@@ -152,6 +152,9 @@ try {
   })
 
   // Starts the HTTP server listening for connections.
+  if (!process.env.PORT) {
+    process.env.PORT = 3000
+  }
   httpServer.listen(process.env.PORT, () => {
     console.log(`Server running at http://localhost:${process.env.PORT}`)
     console.log('Press Ctrl-C to terminate...')
